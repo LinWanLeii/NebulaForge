@@ -36,7 +36,7 @@ public class PlayerKeybindsManager : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     // Given the default keybinding, return the currently registered keybinding

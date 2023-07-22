@@ -20,6 +20,9 @@ public class BasicEnemy : MonoBehaviour
         // Moves to player
         transform.position += (playerRef.position - transform.position).normalized * speed * Time.deltaTime;
 
+        Vector3 direction = (playerRef.position - transform.position).normalized;
+        direction = new Vector3(direction.x, transform.position.y, direction.z);
+        transform.rotation = Quaternion.LookRotation(-Vector3.Cross(transform.up, direction), transform.up);
     }
 
     // Start is called before the first frame update

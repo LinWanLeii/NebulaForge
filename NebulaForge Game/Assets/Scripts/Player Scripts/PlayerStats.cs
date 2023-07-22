@@ -13,7 +13,7 @@ public class PlayerStats : SkillUpgradeBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     override public void Upgrade(SkillUpgrade _skillUpgrade) {
@@ -117,7 +117,7 @@ public class PlayerStats : SkillUpgradeBehaviour
         
         currHealth -= _dmg;
         if (currHealth <= 0) {
-            //LevelManager.getInstance().Defeat();
+            LevelManager.instance.Defeat();
         }
         
         tookDamage = true;

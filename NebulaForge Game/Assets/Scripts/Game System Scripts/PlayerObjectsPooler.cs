@@ -14,7 +14,7 @@ public class PlayerObjectsPooler : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     [System.Serializable]

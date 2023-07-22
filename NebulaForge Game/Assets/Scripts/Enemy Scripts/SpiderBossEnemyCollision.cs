@@ -6,6 +6,7 @@ public class SpiderBossEnemyCollision : MonoBehaviour
 {
     public GameObject spiderMainGO;
     private SpiderBossEnemy spiderScript;
+    public SpiderBossEnemyAttack spiderAttackScript;
     void Start()
     {
         spiderScript = spiderMainGO.GetComponent<SpiderBossEnemy>();
@@ -25,7 +26,15 @@ public class SpiderBossEnemyCollision : MonoBehaviour
     }
 
     void Die() {
-        spiderMainGO.SetActive(false);
-        PlayerStats.instance.GainExp(1000);
+        if (FPSCamera.instance.isFPS) {
+            spiderMainGO.SetActive(false);
+            //PlayerStats.instance.GainExp(1000);
+            LevelManager.instance.Victory();
+        } else {
+            spiderScript.currHealth = spiderScript.maxHealth;
+            FPSCameraShift.instance.StartShift();
+            spiderAttackScript.PutOnHold(true);
+        }
+
     }
 }

@@ -14,7 +14,7 @@ public class PlayerMouseHandler : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     [SerializeField]
@@ -34,20 +34,24 @@ public class PlayerMouseHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (FPSCamera.instance.isFPS) {
+            dir = Camera.main.transform.forward.normalized;
+        } else {
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        int layerMask = 1 << 8; // Cast rays only against colliders in layer 8 aka ground
+            int layerMask = 1 << 8; // Cast rays only against colliders in layer 8 aka ground
 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 1000.0f, layerMask)) {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * raycastHit.distance, Color.yellow);
-            transform.position = raycastHit.point;
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, 1000.0f, layerMask)) {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * raycastHit.distance, Color.yellow);
+                transform.position = raycastHit.point;
+            }
+
+            
+            dir = transform.position - PlayerControls.instance.gameObject.transform.position;
+            dir = new Vector3(dir.x, 0, dir.z).normalized;
+            transform.position = dir * distanceFromPlayer + PlayerControls.instance.gameObject.transform.position;
         }
-
-        
-        dir = transform.position - PlayerControls.instance.gameObject.transform.position;
-        dir = new Vector3(dir.x, 0, dir.z).normalized;
-        transform.position = dir * distanceFromPlayer + PlayerControls.instance.gameObject.transform.position;
     }
 }

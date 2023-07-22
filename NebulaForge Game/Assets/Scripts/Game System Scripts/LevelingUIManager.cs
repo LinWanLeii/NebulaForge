@@ -16,7 +16,7 @@ public class LevelingUIManager : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     public GameObject levelingUI;
@@ -48,6 +48,7 @@ public class LevelingUIManager : MonoBehaviour
         
         if (isShowingUI) {
             Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.Confined;
             topUIName.text = options[0].sName + " Lv " + options[0].sCurrLevel;
             midUIName.text = options[1].sName + " Lv " + options[1].sCurrLevel;;
             botUIName.text = options[2].sName + " Lv " + options[2].sCurrLevel;;
@@ -70,8 +71,12 @@ public class LevelingUIManager : MonoBehaviour
 
         if (_flag) {
             Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.Confined;
         } else {
             Time.timeScale = 1.0f;
+            if (FPSCamera.instance.isFPS) {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 

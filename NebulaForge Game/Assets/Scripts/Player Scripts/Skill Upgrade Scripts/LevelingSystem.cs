@@ -14,7 +14,7 @@ public class LevelingSystem : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
 

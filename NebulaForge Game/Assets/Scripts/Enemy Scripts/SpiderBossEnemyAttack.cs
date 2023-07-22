@@ -14,6 +14,7 @@ public class SpiderBossEnemyAttack : MonoBehaviour
     public float damageLingerTime;
     public float damageLingerTimer;
     public Color fullChargeColor;
+    public bool isOnHold;
 
     // Start is called before the first frame update
     void Start()
@@ -25,29 +26,34 @@ public class SpiderBossEnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isChargingUp) {
-            if (alpha < 1.0f) {
-                damageLingerTimer += Time.deltaTime;
-                alpha += Time.deltaTime * chargeSpeed;
-                myMat.color = new Color(fullChargeColor.r, fullChargeColor.g, fullChargeColor.b, alpha);
-            } else {
-                chargedAttackGO.SetActive(true);
-            myMat.color = new Color(0, 0, 0, 0);
-                isChargingUp = false;
-                isDamaging = true;
-            }
-        } else if (isDamaging) {
-            if (damageLingerTimer >= damageLingerTime) {
-                damageLingerTimer = 0;
-                isDamaging = false;
-                chargedAttackGO.SetActive(false);
-            } else {
-                damageLingerTimer += Time.deltaTime;
+        if (isOnHold) {
+            if (!FPSCameraShift.instance.startShift) {
+                PutOnHold(false);
             }
         } else {
-            chargedAttackGO.SetActive(false);
-            myMat.color = new Color(0, 0, 0, 0);
-            
+            if (isChargingUp) {
+                if (alpha < 1.0f) {
+                    damageLingerTimer += Time.deltaTime;
+                    alpha += Time.deltaTime * chargeSpeed;
+                    myMat.color = new Color(fullChargeColor.r, fullChargeColor.g, fullChargeColor.b, alpha);
+                } else {
+                    chargedAttackGO.SetActive(true);
+                    myMat.color = new Color(0, 0, 0, 0);
+                    isChargingUp = false;
+                    isDamaging = true;
+                }
+            } else if (isDamaging) {
+                if (damageLingerTimer >= damageLingerTime) {
+                    damageLingerTimer = 0;
+                    isDamaging = false;
+                    chargedAttackGO.SetActive(false);
+                } else {
+                    damageLingerTimer += Time.deltaTime;
+                }
+            } else {
+                chargedAttackGO.SetActive(false);
+                myMat.color = new Color(0, 0, 0, 0);
+            }
         }
     }
 
@@ -66,6 +72,18 @@ public class SpiderBossEnemyAttack : MonoBehaviour
             if (col.gameObject.tag == "Player") {
                 PlayerStats.instance.LoseHealth(damage);
             }
+        }
+    }
+
+    public void PutOnHold(bool _flag) {
+        isOnHold = _flag;
+        if (_flag) {
+            chargedAttackGO.SetActive(false);
+            myMat.color = new Color(0, 0, 0, 0);
+            isChargingUp = false;
+            isDamaging = false;
+            alpha = 0;
+            damage = 0;
         }
     }
 }

@@ -15,7 +15,7 @@ public class PauseManager : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     public bool isPaused = false;
@@ -43,15 +43,23 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         isPaused = false;
+        if (FPSCamera.instance.isFPS) {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void Pause() {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0.0f;
         isPaused = true;
+        if (FPSCamera.instance.isFPS) {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void LoadMainMenu() {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
+        isPaused = false;
     }
 }

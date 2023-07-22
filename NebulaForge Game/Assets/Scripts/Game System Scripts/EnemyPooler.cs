@@ -21,7 +21,7 @@ public class EnemyPooler : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     [System.Serializable]
@@ -88,6 +88,10 @@ public class EnemyPooler : MonoBehaviour
             spawnTime = 1.0f - PlayerStats.instance.GetplayerLv() * 0.1f;
         } else {
             spawnTime = 0.1f;
+        }
+
+        if (FPSCameraShift.instance.startShift) {
+            parent.gameObject.SetActive(false);
         }
     }
 
