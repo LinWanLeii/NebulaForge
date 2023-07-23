@@ -15,6 +15,7 @@ public class SpiderBossEnemyAttack : MonoBehaviour
     public float damageLingerTimer;
     public Color fullChargeColor;
     public bool isOnHold;
+    public AudioSource shootSound;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +66,7 @@ public class SpiderBossEnemyAttack : MonoBehaviour
         damageLingerTime = _damageLingerTime;
         damageLingerTimer = 0;
         damage = _damage;
+        shootSound.Play();
     }
 
     void OnCollisionStay(Collision col) {

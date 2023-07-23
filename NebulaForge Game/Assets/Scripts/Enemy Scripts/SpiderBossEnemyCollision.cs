@@ -7,6 +7,7 @@ public class SpiderBossEnemyCollision : MonoBehaviour
     public GameObject spiderMainGO;
     private SpiderBossEnemy spiderScript;
     public SpiderBossEnemyAttack spiderAttackScript;
+    public GameObject spiderFPSAttackGO;
     void Start()
     {
         spiderScript = spiderMainGO.GetComponent<SpiderBossEnemy>();
@@ -34,6 +35,7 @@ public class SpiderBossEnemyCollision : MonoBehaviour
             spiderScript.currHealth = spiderScript.maxHealth;
             FPSCameraShift.instance.StartShift();
             spiderAttackScript.PutOnHold(true);
+            spiderFPSAttackGO.SetActive(true);
         }
 
     }

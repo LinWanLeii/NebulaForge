@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     public float timeTaken;
     public GameObject defeatUI;
     public GameObject victoryUI;
+    public AudioSource gameOverSound;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +42,12 @@ public class LevelManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         victoryUI.SetActive(true);
         Time.timeScale = 0.0f;
+        gameOverSound.Play();
     }
     public void Defeat() {
         Cursor.lockState = CursorLockMode.None;
         defeatUI.SetActive(true);
         Time.timeScale = 0.0f;
+        gameOverSound.Play();
     }
 }

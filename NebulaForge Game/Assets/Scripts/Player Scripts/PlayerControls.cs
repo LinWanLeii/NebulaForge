@@ -53,39 +53,44 @@ public class PlayerControls : MonoBehaviour
 
     // Handles the 4 direction input for movement when not FPS
     void Move() {
+        Vector3 moveDir = Vector3.zero;
+
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_UP))) {
-            transform.position += Vector3.forward * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir += Vector3.forward;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_DOWN))) {
-            transform.position -= Vector3.forward * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir -= Vector3.forward;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_LEFT))) {
-            transform.position -= Vector3.right * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir -= Vector3.right;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_RIGHT))) {
-            transform.position += Vector3.right * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir += Vector3.right;
         }
+
+        transform.position += moveDir.normalized  * PlayerStats.instance.GetSpd() * Time.deltaTime;
     }
 
     // Handles the 4 direction input for movement when FPS
     void FPSMove() {
+        Vector3 moveDir = Vector3.zero;
         Vector3 forward = Camera.main.transform.forward;
         forward = new Vector3(forward.x, transform.position.y, forward.z);
         Vector3 right = Camera.main.transform.right;
         right = new Vector3(right.x, transform.position.y, right.z);
 
-
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_UP))) {
-            transform.position += forward * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir += forward;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_DOWN))) {
-            transform.position -= forward * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir -= forward;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_LEFT))) {
-            transform.position -= right * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir -= right;
         }
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_RIGHT))) {
-            transform.position += right * PlayerStats.instance.GetSpd() * Time.deltaTime;
+            moveDir += right;
         }
+        transform.position += moveDir.normalized * PlayerStats.instance.GetSpd() * Time.deltaTime;
     }
 }

@@ -31,6 +31,8 @@ public class PlayerBasicWeapon : SkillUpgradeBehaviour
             weaponShootSpeed += DAMAGE_UPGRADE;
         }
     }
+    [SerializeField]
+    private AudioSource shootSound;
 
     [SerializeField]
     private float weaponCooldownTime;
@@ -63,6 +65,7 @@ public class PlayerBasicWeapon : SkillUpgradeBehaviour
         if (weaponCooldownTimer >= weaponCooldownTime) {
             weaponCooldownTimer = 0;
             
+            shootSound.Play();
             PlayerObjectsPooler.instance.SpawnFromPool("BasicProjectile", transform.position, Quaternion.identity)
             .GetComponent<PlayerProjectile>().Shoot(PlayerMouseHandler.instance.GetMouseDir(),
                                                     weaponShootSpeed,

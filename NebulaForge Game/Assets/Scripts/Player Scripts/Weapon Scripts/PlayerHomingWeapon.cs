@@ -33,6 +33,8 @@ public class PlayerHomingWeapon : SkillUpgradeBehaviour
     }
 
     [SerializeField]
+    private AudioSource shootSound;
+    [SerializeField]
     private float weaponCooldownTime;
     [SerializeField]
     private float weaponCooldownTimer;
@@ -63,6 +65,7 @@ public class PlayerHomingWeapon : SkillUpgradeBehaviour
         if (weaponCooldownTimer >= weaponCooldownTime) {
             weaponCooldownTimer = 0;
 
+            shootSound.Play();
             PlayerObjectsPooler.instance.SpawnFromPool("HomingProjectile", transform.position, Quaternion.LookRotation(PlayerMouseHandler.instance.GetMouseDir(), transform.up))
             .GetComponent<PlayerProjectile>().Shoot(PlayerMouseHandler.instance.GetMouseDir(),
                                                     weaponShootSpeed,

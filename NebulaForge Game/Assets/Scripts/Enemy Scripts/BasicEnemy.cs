@@ -50,6 +50,7 @@ public class BasicEnemy : MonoBehaviour
             p.Reset();
         }
     }
+    
     void OnCollisionStay(Collision col) {
         Debug.Log("Touched " + col.gameObject.name);
         if (col.gameObject.tag == "Player") {
