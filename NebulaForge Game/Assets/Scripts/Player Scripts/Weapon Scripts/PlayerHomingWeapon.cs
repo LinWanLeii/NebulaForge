@@ -62,6 +62,7 @@ public class PlayerHomingWeapon : SkillUpgradeBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FPSCameraShift.instance.startShift) {return;}
         if (weaponCooldownTimer >= weaponCooldownTime) {
             weaponCooldownTimer = 0;
 

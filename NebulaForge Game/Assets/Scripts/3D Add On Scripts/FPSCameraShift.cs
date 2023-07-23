@@ -37,7 +37,7 @@ public class FPSCameraShift : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DebugingControls();
+        DebugingControls();
 
         if (startShift) {
             RotateToFPS();

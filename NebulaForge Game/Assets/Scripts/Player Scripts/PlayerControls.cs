@@ -53,6 +53,8 @@ public class PlayerControls : MonoBehaviour
 
     // Handles the 4 direction input for movement when not FPS
     void Move() {
+        
+        if (FPSCameraShift.instance.startShift) {return;}
         Vector3 moveDir = Vector3.zero;
 
         if (Input.GetKey(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_UP))) {
@@ -73,6 +75,8 @@ public class PlayerControls : MonoBehaviour
 
     // Handles the 4 direction input for movement when FPS
     void FPSMove() {
+        
+        if (FPSCameraShift.instance.startShift) {return;}
         Vector3 moveDir = Vector3.zero;
         Vector3 forward = Camera.main.transform.forward;
         forward = new Vector3(forward.x, transform.position.y, forward.z);

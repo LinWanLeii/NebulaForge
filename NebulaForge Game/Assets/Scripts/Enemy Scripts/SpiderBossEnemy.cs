@@ -33,6 +33,7 @@ public class SpiderBossEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FPSCameraShift.instance.startShift) {return;}
         playerPos = PlayerStats.instance.gameObject.transform.position;
 
         if (isChasing) {
