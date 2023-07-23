@@ -47,19 +47,31 @@ public class FPSCameraShift : MonoBehaviour
 
     void MoveToPlayer() {
         Camera.main.transform.position += (player.position - Camera.main.transform.position).normalized * mvspd * Time.deltaTime;
+        Debug.Log("dis: " + Vector3.Distance(Camera.main.transform.position, player.position));
         if (Vector3.Distance(Camera.main.transform.position, player.position) < 0.01f) {
+            Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
+            Camera.main.transform.position = player.position;
             StopShift();
+        }
+        if (Vector3.Distance(Camera.main.transform.position, player.position) < 10.0f) {
+            playerModel.SetActive(false);
         }
     }
 
     void RotateToFPS() {
         Vector3 to = new Vector3(0, 0, 0);
-        if (Vector3.Distance(Camera.main.transform.eulerAngles, to) > 0.01f) {
+        Debug.Log("rot: " + Vector3.Distance(Camera.main.transform.eulerAngles, to));
+        if (Vector3.Distance(Camera.main.transform.eulerAngles, to) > 11.0f) {
             Camera.main.transform.eulerAngles = Vector3.Lerp(Camera.main.transform.rotation.eulerAngles, to, Time.deltaTime * rspd);
         }
         else {
-            Camera.main.transform.eulerAngles = to;
+            Camera.main.transform.eulerAngles = new Vector3(0, 0, 0);
+            Camera.main.transform.position = player.position;
             StopShift();
+        }
+        
+        if (Vector3.Distance(Camera.main.transform.eulerAngles, to) > 11.0f) {
+            playerModel.SetActive(false);
         }
     }
 
