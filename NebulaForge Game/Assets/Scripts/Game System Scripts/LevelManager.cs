@@ -43,11 +43,13 @@ public class LevelManager : MonoBehaviour
         victoryUI.SetActive(true);
         Time.timeScale = 0.0f;
         gameOverSound.Play();
+        currLevel = -1;
     }
     public void Defeat() {
         Cursor.lockState = CursorLockMode.None;
         defeatUI.SetActive(true);
         Time.timeScale = 0.0f;
         gameOverSound.Play();
+        currLevel = -1;
     }
 }

@@ -30,6 +30,8 @@ public class PauseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LevelManager.instance.currLevel == -1) { return; }
+
         if (Input.GetKeyDown(PlayerKeybindsManager.instance.GetKeyForAction(PlayerKeybindsManager.KEYBINDINGS.KB_PAUSE))) {
             if (isPaused) {
                 Resume();

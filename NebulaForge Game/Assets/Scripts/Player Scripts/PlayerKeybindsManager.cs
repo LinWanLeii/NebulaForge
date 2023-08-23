@@ -36,7 +36,7 @@ public class PlayerKeybindsManager : MonoBehaviour
         else if (instance != null) {
             Destroy(this);
         }
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
 
     // Given the default keybinding, return the currently registered keybinding
@@ -55,5 +55,9 @@ public class PlayerKeybindsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void ChangeBindings(KEYBINDINGS _kb, KeyCode _kc) {
+        kbDictionary[_kb] = _kc;
     }
 }
